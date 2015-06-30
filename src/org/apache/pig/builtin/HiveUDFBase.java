@@ -28,6 +28,7 @@ import org.apache.hadoop.hive.ql.exec.FunctionRegistry;
 import org.apache.hadoop.hive.ql.exec.MapredContext;
 import org.apache.hadoop.hive.ql.exec.UDAF;
 import org.apache.hadoop.hive.ql.exec.UDF;
+import org.apache.hadoop.hive.ql.parse.SemanticException;
 import org.apache.hadoop.hive.ql.udf.generic.Collector;
 import org.apache.hadoop.hive.ql.udf.generic.GenericUDAFResolver;
 import org.apache.hadoop.hive.ql.udf.generic.GenericUDF;
@@ -103,8 +104,12 @@ abstract class HiveUDFBase extends EvalFunc<Object> {
         String className = funcName;
         Class udfClass;
         if (FunctionRegistry.getFunctionNames().contains(funcName)) {
+          try {
             FunctionInfo func = FunctionRegistry.getFunctionInfo(funcName);
             udfClass = func.getFunctionClass();
+          } catch(SemanticException se) {
+            throw new IOException(se);
+          }
         } else {
             udfClass = PigContext.resolveClassName(className);
             if (udfClass == null) {
