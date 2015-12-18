@@ -151,7 +151,7 @@ if [ "$includeHCatalog" == "true" ]; then
   hiveExecVersion=`ls $HIVE_HOME/lib/$hiveExecJar`
   fbJarVersion=`ls $HIVE_HOME/lib/$fbJar`
   jdoECJarVersion=`ls $HIVE_HOME/lib/$jdoECJar`
-  slfJarVersion=`ls $HIVE_HOME/lib/$slfJar`
+  slfJarVersion=`ls $HIVE_HOME/lib/$slfJar 2> /dev/null`
   hbaseHiveVersion=`ls $HIVE_HOME/lib/$hbaseHiveJar`
 
   # hcatalog jar name for 0.4 and earlier
@@ -181,7 +181,7 @@ if [ "$includeHCatalog" == "true" ]; then
     # in 0.5 and newer we need to add multiple jars to the class path
     hbaseHCatJarPath="$HCAT_HOME/share/hcatalog/storage-handlers/hbase/lib/*"
   else
-    hbaseHCatJarPath=`ls $HCAT_HOME/lib/$hbaseHCatJar`
+    hbaseHCatJarPath=`ls $HCAT_HOME/lib/$hbaseHCatJar 2> /dev/null`
   fi
   
   # get the pig storage handler jar
