@@ -1,0 +1,8 @@
+defaultRuntime: dockerrun
+
+branches:
+  - Branch: sap-branch-0.16.0-alti
+    type: GITHUB_DEV
+
+  - Pattern: sap-.*
+    type: GITHUB_DEV
