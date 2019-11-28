@@ -46,7 +46,7 @@ export RPM_DESCRIPTION="Apache Pig ${ARTIFACT_VERSION}\n\n${DESCRIPTION}"
 export RPM_DIR="${RPM_DIR:-"${INSTALL_DIR}/pig-artifact/"}"
 mkdir --mode=0755 -p ${RPM_DIR}
 
-echo "Packaging pig rpm with name ${RPM_NAME} with version ${ARTIFACT_VERSION}-${DATE_STRING}"
+echo "Packaging pig rpm with name ${RPM_NAME} with version ${ALTISCALE_RELEASE}-${DATE_STRING}"
 
 export RPM_BUILD_DIR="${INSTALL_DIR}/opt/pig-${PIG_VERSION}"
 mkdir --mode=0755 -p ${RPM_BUILD_DIR}
@@ -75,5 +75,7 @@ fpm --verbose \
 --rpm-group root \
 -C ${INSTALL_DIR} \
 opt etc
+
+mv "${RPM_DIR}${RPM_NAME}-${ALTISCALE_RELEASE}-${DATE_STRING}.x86_64.rpm" "${RPM_DIR}alti-pig-${XMAKE_PROJECT_VERSION}.rpm"
 
 exit 0
