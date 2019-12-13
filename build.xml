@@ -235,7 +235,7 @@
     <property name="src.shims.test.dir" value="${basedir}/shims/test/hadoop${hadoopversion}" />
 
     <property name="hadoop.jar" value="hadoop-core-${hadoop-core.version}.jar" />
-    <property name="asfrepo" value="https://repository.apache.org"/>
+    <property name="asfrepo" value="http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.releases"/>
     <property name="asfsnapshotrepo" value="${asfrepo}/content/repositories/snapshots"/>
     <property name="mvnrepo" value="http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.releases"/>
     <property name="asfstagingrepo" value="${asfrepo}/service/local/staging/deploy/maven2"/>
