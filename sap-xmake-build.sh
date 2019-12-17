@@ -51,8 +51,10 @@ echo "Packaging pig rpm with name ${RPM_NAME} with version ${ALTISCALE_RELEASE}-
 export RPM_BUILD_DIR="${INSTALL_DIR}/opt/pig-${PIG_VERSION}"
 mkdir --mode=0755 -p ${RPM_BUILD_DIR}
 mkdir --mode=0755 -p ${INSTALL_DIR}/etc/pig
+
 cd ${RPM_BUILD_DIR}
 mkdir --mode=0755 lib
+tar -xvzpf ${MY_DIR}/build/pig-${ARTIFACT_VERSION}.tar.gz
 
 cd ${RPM_DIR}
 
