@@ -12,21 +12,20 @@ export JAVA_HOME=/opt/sapjvm_7
 export FORREST_HOME=/opt/apache-forrest
 export PATH=$M2_HOME/bin:$JAVA_HOME/bin:/opt/apache-ant/bin:$PATH
 
-
 #------------------------------------------------------------------------------
 #
 #  ***** compile and package pig *****
 #
 #------------------------------------------------------------------------------
 
-PIG_VERSION="${PIG_VERSION:-${XMAKE_PROJECT_VERSION}}"
+PIG_VERSION="0.15.0"
 export ARTIFACT_VERSION="$PIG_VERSION"
 
-ant -Dforrest.home=/opt/apache-forrest -Dant.home=/opt/apache-ant/ -Dversion=${ARTIFACT_VERSION} -Dhadoopversion=23 clean jar
+ant -Dforrest.home=/opt/apache-forrest -Dant.home=/opt/apache-ant/ -Dversion=${ARTIFACT_VERSION} -Dhadoopversion=23 clean jar-h12
 pushd contrib/piggybank/java
 ant -Dhadoopversion=23
 popd
-ant -Dforrest.home=/opt/apache-forrest -Dant.home=/opt/apache-ant/ -Dversion=${ARTIFACT_VERSION} -Dhadoopversion=23 tar
+ant -Dforrest.home=/opt/apache-forrest -Dant.home=/opt/apache-ant/ -Dversion=${ARTIFACT_VERSION} -Dhadoopversion=23 tar-h12
 
 #------------------------------------------------------------------------------
 #
@@ -48,12 +47,10 @@ mkdir --mode=0755 -p ${RPM_DIR}
 
 echo "Packaging pig rpm with name ${RPM_NAME} with version ${ALTISCALE_RELEASE}-${DATE_STRING}"
 
-export RPM_BUILD_DIR="${INSTALL_DIR}/opt/pig-${PIG_VERSION}"
+export RPM_BUILD_DIR="${INSTALL_DIR}/opt"
 mkdir --mode=0755 -p ${RPM_BUILD_DIR}
-mkdir --mode=0755 -p ${INSTALL_DIR}/etc/pig
 
 cd ${RPM_BUILD_DIR}
-mkdir --mode=0755 lib
 tar -xvzpf ${MY_DIR}/build/pig-${ARTIFACT_VERSION}.tar.gz
 
 cd ${RPM_DIR}
@@ -76,7 +73,7 @@ fpm --verbose \
 --rpm-user root \
 --rpm-group root \
 -C ${INSTALL_DIR} \
-opt etc
+opt
 
 mv "${RPM_DIR}${RPM_NAME}-${ALTISCALE_RELEASE}-${DATE_STRING}.x86_64.rpm" "${RPM_DIR}alti-pig-${XMAKE_PROJECT_VERSION}.rpm"
 
